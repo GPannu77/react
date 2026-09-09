@@ -27,6 +27,10 @@ function ToDoList(){
 
     }
 
+    function moveTaskDown(index){
+
+    }
+
 
 
     return(<div className="to-do-list">

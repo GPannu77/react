@@ -20,7 +20,7 @@ function ToDoList(){
 
     function deleteTask(index){
         const updatedTasks = tasks.filter((_, i) => i != index);
-        setNewTasks(updatedTasks);
+        setTasks(updatedTasks);
     }
 
     function moveTaskUp(index){
@@ -38,6 +38,7 @@ function ToDoList(){
             [updatedTasks[index], updatedTasks[index + 1]] = 
             [updatedTasks[index + 1], updatedTasks[index]];
             setTasks(updatedTasks); 
+        }
     }
 
 
@@ -63,15 +64,15 @@ function ToDoList(){
                         onClick={() => deleteTask(index)}>delete</button>
 
                 <button className="move-button"
-                        onClick={() => deleteTask(index)}>
+                        onClick={() => moveTaskUp(index)}>
                 Up</button>
 
                  <button className="move-button"
-                        onClick={() => deleteTask(index)}>
+                        onClick={() => moveTaskDown(index)}>
                 Down</button>
             </li>)}
         </ol>
     </div>)
 }
 
-export default ToDoList
+export default ToDoList;

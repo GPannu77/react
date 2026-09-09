@@ -15,11 +15,12 @@ function ToDoList(){
             setTasks(t => [...t, newTask]);
             setNewTask("");
         }
-        
+
     }
 
     function deleteTask(index){
-
+        const updatedTasks = tasks.filter((_, i) => i != index);
+        setNewTasks(updatedTasks);
     }
 
     function moveTaskUp(index){

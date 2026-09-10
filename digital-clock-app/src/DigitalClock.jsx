@@ -27,7 +27,7 @@ function DigitalClock(){
     }
 
     function padZero(number){
-        return number < 10 ? "0" : "" + number;
+        return (number < 10 ? "0" : "") + number;
     }
 
     return(<div className='clock-container'>

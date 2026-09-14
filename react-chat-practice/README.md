@@ -1,16 +1,84 @@
-# React + Vite
+# React Chat Practice
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A frontend-only chat app UI built with React + Vite, using mock/local data. No backend required — this project is focused purely on practicing React fundamentals: components, state, hooks, and effects.
 
-Currently, two official plugins are available:
+## Goal
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This is a learning project, not a production app. The aim is to build a realistic-feeling chat interface entirely with fake data, so that later a real backend (Firebase, Supabase, or a custom Node.js server) can be swapped in without rewriting the UI.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Conversation list with active conversation selection
+- Message list with sending, auto-scroll, and timestamps
+- Simulated replies (fake "typing..." + canned response)
+- Message state persisted to `localStorage` across refreshes
+- Dark mode, unread badges, and search (planned)
 
-## Expanding the Oxlint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- React
+- Vite
+- Plain CSS (no UI framework, to practice styling by hand)
+
+## Project Structure
+
+```
+react-chat-practice/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── ConversationList.jsx
+│   │   ├── ConversationItem.jsx
+│   │   ├── ChatWindow.jsx
+│   │   ├── ChatHeader.jsx
+│   │   ├── MessageList.jsx
+│   │   ├── MessageBubble.jsx
+│   │   ├── MessageInput.jsx
+│   │   └── TypingIndicator.jsx
+│   ├── data/
+│   │   └── mockData.js
+│   ├── hooks/
+│   │   ├── useLocalStorage.js
+│   │   └── useAutoScroll.js
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── .gitignore
+├── index.html
+├── package.json
+└── README.md
+```
+
+## Getting Started
+
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/<your-username>/react-chat-practice.git
+cd react-chat-practice
+npm install
+```
+
+Run the dev server:
+
+```bash
+npm run dev
+```
+
+Then open the local URL Vite prints in the terminal (usually `http://localhost:5173`).
+
+## Roadmap
+
+- [x] Set up project structure
+- [ ] Design mock data shapes (users, conversations, messages)
+- [ ] Build component tree
+- [ ] Wire up state (active conversation, messages)
+- [ ] Message sending + simulated replies
+- [ ] Auto-scroll, timestamps, typing indicator
+- [ ] Persist messages to localStorage
+- [ ] Dark mode, unread badges, search
+- [ ] (Later) Swap mock data layer for a real backend
+
+## Notes
+
+All chat data currently lives in `src/data/mockData.js`. Components read from and update this data through props/state only — no component talks to `mockData.js` directly — so that a real backend can eventually replace it with minimal changes to the UI layer.

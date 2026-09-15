@@ -25,6 +25,11 @@ function App() {
       timestamp: new Date().toISOString()
     }
 
+    setConversations(conversations.map((c) => c.id === activeConversationId ? (
+        {...c, messages: [...c.messages, newMessage]}) : (c)));
+
+    setMessageText("");
+
   }
 
   return(

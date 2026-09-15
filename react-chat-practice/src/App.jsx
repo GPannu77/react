@@ -13,6 +13,20 @@ function App() {
     setMessageText(e.target.value);
   }
 
+  function sendMessage(){
+    if (messageText.trim() === "" || activeConversation === undefined) {
+      return;
+    }
+
+    const newMessage = {
+      id: Date.now().toString(),
+      senderId: currentUser.id,
+      text: messageText,
+      timestamp: new Date().toISOString()
+    }
+
+  }
+
   return(
   <div>
     <h1>Chats</h1>
@@ -45,6 +59,7 @@ function App() {
       </ul>
     )}
     <input value={messageText} onChange={(e) => changeMessageText(e)} type="text"></input>
+    <button onClick={sendMessage}>Send Message</button>
   </div>
   );
 }

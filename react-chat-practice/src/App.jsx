@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { currentUser, users, conversations } from "./data/mockData";
+import { currentUser, users, conversations as initialConversations } from "./data/mockData";
 
 function App() {
 
   const[activeConversationId, setActiveConversationId] = useState(null);
+  const[conversations, setConversations] = useState(initialConversations);
+  const[messageText, setMessageText] = useState("");
 
   const activeConversation = conversations.find((c) => c.id === activeConversationId);
+
+  function changeMessageText(e){
+    setMessageText(e.target.value);
+  }
 
   return(
   <div>
@@ -15,7 +21,7 @@ function App() {
         const participant = users.find((u) => u.id === c.participantId);
         return (
         <li 
-          key={c.participantId}
+          key={c.id}
           onClick={() => setActiveConversationId(c.id)}
             >
               {participant.name}
@@ -38,6 +44,7 @@ function App() {
         })}
       </ul>
     )}
+    <input value={messageText} onChange={(e) => changeMessageText(e)} type="text"></input>
   </div>
   );
 }

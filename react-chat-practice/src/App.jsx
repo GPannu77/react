@@ -5,6 +5,8 @@ function App() {
 
   const[activeConversationId, setActiveConversationId] = useState(null);
 
+  const activeConversation = conversations.find((c) => c.id === activeConversationId);
+
   return(
   <div>
     <h1>Chats</h1>
@@ -21,7 +23,21 @@ function App() {
       })}
     </ul>
 
-    <p>Active conversation: {activeConversationId ?? "none selected"}</p>
+    <h3>Messages</h3>
+    {activeConversation === undefined ? (
+      <p>Select a chat</p>
+    ) : (
+      <ul>
+        {activeConversation.messages.map((message) => {
+          const isMine = message.senderId === currentUser.id;
+          return (
+            <li key={message.id}>
+              {isMine ? "Me": "Them"}: {message.text}
+            </li>
+          )
+        })}
+      </ul>
+    )}
   </div>
   );
 }

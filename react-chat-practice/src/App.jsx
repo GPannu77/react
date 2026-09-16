@@ -23,14 +23,6 @@ function App() {
   const activeConversation = conversations.find((c) => c.id === activeConversationId);
 
   useEffect(() => {
-    messageEndRef.current.scrollIntoView({behavior: "smooth"});
-  }, [activeConversation?.messages]);
-
-  useEffect(() => {
-    localStorage.setItem("chatConversations", JSON.stringify(conversations));
-  }, [conversations]);
-
-  useEffect(() => {
     const savedConversation = localStorage.getItem("chatConversations");
     
     if (savedConversation === null) {
@@ -39,6 +31,15 @@ function App() {
 
     setConversations(JSON.parse(savedConversation));
   }, []);
+  
+  useEffect(() => {
+    messageEndRef.current.scrollIntoView({behavior: "smooth"});
+  }, [activeConversation?.messages]);
+
+  useEffect(() => {
+    localStorage.setItem("chatConversations", JSON.stringify(conversations));
+  }, [conversations]);
+
 
   function changeMessageText(e){
     setMessageText(e.target.value);

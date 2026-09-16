@@ -30,6 +30,20 @@ function App() {
 
     setMessageText("");
 
+    setTimeout(() => {
+      const replyMessage = {
+        id: Date.now().toString(),
+        senderId: activeConversation.participantId,
+        text: "Thanks for your message!",
+        timestamp: new Date().toISOString()
+      }
+
+      setConversations((prevConversations => {
+        return prevConversations.map((i) => i.id === activeConversationId ? (
+          {...i, messages: [...i.messages, replyMessage]}) : (i))}));
+
+    }, 1500);
+
   }
 
   return(

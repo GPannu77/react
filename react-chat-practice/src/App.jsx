@@ -30,6 +30,16 @@ function App() {
     localStorage.setItem("chatConversations", JSON.stringify(conversations));
   }, [conversations]);
 
+  useEffect(() => {
+    const savedConversation = localStorage.getItem("chatConversations");
+    
+    if (savedConversation === null) {
+      return;
+    }
+
+    setConversations(JSON.parse(savedConversation));
+  }, []);
+
   function changeMessageText(e){
     setMessageText(e.target.value);
   }

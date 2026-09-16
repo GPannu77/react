@@ -18,7 +18,13 @@ function App() {
   const[conversations, setConversations] = useState(initialConversations);
   const[messageText, setMessageText] = useState("");
 
+  const messageEndRef = useRef(null);
+
   const activeConversation = conversations.find((c) => c.id === activeConversationId);
+
+  useEffect(() => {
+    messageEndRef.current.scrollIntoView({behavior: "smooth"});
+  }, [activeConversation?.messages]);
 
   function changeMessageText(e){
     setMessageText(e.target.value);
@@ -88,6 +94,7 @@ function App() {
         })}
       </ul>
     )}
+    <div ref={messageEndRef}></div>
     <input value={messageText} onChange={(e) => changeMessageText(e)} type="text"></input>
     <button onClick={sendMessage}>Send Message</button>
   </div>

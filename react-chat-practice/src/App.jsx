@@ -1,6 +1,17 @@
 import { useState } from "react";
 import { currentUser, users, conversations as initialConversations } from "./data/mockData";
 
+
+function formatTime(isoString) {
+
+  const dateObj = new Date(isoString);
+
+  return dateObj.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit"
+  });
+}
+
 function App() {
 
   const[activeConversationId, setActiveConversationId] = useState(null);

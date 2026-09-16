@@ -26,6 +26,10 @@ function App() {
     messageEndRef.current.scrollIntoView({behavior: "smooth"});
   }, [activeConversation?.messages]);
 
+  useEffect(() => {
+    localStorage.setItem("chatConversations", JSON.stringify(conversations));
+  }, [conversations]);
+
   function changeMessageText(e){
     setMessageText(e.target.value);
   }

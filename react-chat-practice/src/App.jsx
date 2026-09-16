@@ -82,7 +82,7 @@ function App() {
           const isMine = message.senderId === currentUser.id;
           return (
             <li key={message.id}>
-              {isMine ? "Me": "Them"}: {message.text}
+              {isMine ? "Me": "Them"}: {message.text} {formatTime(message.timestamp)}
             </li>
           )
         })}

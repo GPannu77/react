@@ -15,22 +15,20 @@ function formatTime(isoString) {
 function App() {
 
   const[activeConversationId, setActiveConversationId] = useState(null);
-  const[conversations, setConversations] = useState(initialConversations);
+  const[conversations, setConversations] = useState(() => {
+    const savedConversation = localStorage.getItem("chatConversations");
+    
+    if (savedConversation === null) {
+      return initialConversations;
+    }
+
+    return (JSON.parse(savedConversation));
+  });
   const[messageText, setMessageText] = useState("");
 
   const messageEndRef = useRef(null);
 
   const activeConversation = conversations.find((c) => c.id === activeConversationId);
-
-  useEffect(() => {
-    const savedConversation = localStorage.getItem("chatConversations");
-    
-    if (savedConversation === null) {
-      return;
-    }
-
-    setConversations(JSON.parse(savedConversation));
-  }, []);
   
   useEffect(() => {
     messageEndRef.current.scrollIntoView({behavior: "smooth"});

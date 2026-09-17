@@ -3,6 +3,7 @@ import { currentUser, users, conversations as initialConversations } from "./dat
 import MessageBubble from "./components/MessageBubble";
 import ConversationItem from "./components/ConversationItem";
 import MessageList from "./components/MessageList";
+import ConversationList from "./components/ConversationList";
 
 function App() {
 
@@ -74,19 +75,8 @@ function App() {
   <div className={isDarkMode ? "dark" : "light"}>
     <h1>Chats</h1>
     <button onClick={()=> setIsDarkMode((prev) => !prev)}>Toggle Dark Mode</button>
-    <ul>
-      {conversations.map((c) => {
-        const participant = users.find((u) => u.id === c.participantId);
-        return (
-
-          <ConversationItem 
-            key={c.id}
-            participantName={participant.name}
-            onClick={() => setActiveConversationId(c.id)}
-            >
-            </ConversationItem>);
-      })}
-    </ul>
+    
+    <ConversationList conversations={conversations} onSelectConversation={setActiveConversationId}></ConversationList>
 
     <MessageList activeConversation= {activeConversation}></MessageList>
     <div ref={messageEndRef}></div>

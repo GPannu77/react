@@ -24,12 +24,14 @@ function App() {
 
     return (JSON.parse(savedConversation));
   });
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const[messageText, setMessageText] = useState("");
 
   const messageEndRef = useRef(null);
 
   const activeConversation = conversations.find((c) => c.id === activeConversationId);
-  
+
   useEffect(() => {
     messageEndRef.current.scrollIntoView({behavior: "smooth"});
   }, [activeConversation?.messages]);
@@ -77,8 +79,9 @@ function App() {
   }
 
   return(
-  <div>
+  <div className={isDarkMode ? "dark" : "light"}>
     <h1>Chats</h1>
+    <button onClick={()=> setIsDarkMode((prev) => !prev)}>Toggle Dark Mode</button>
     <ul>
       {conversations.map((c) => {
         const participant = users.find((u) => u.id === c.participantId);

@@ -1,16 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { currentUser, users, conversations as initialConversations } from "./data/mockData";
-
-
-function formatTime(isoString) {
-
-  const dateObj = new Date(isoString);
-
-  return dateObj.toLocaleTimeString([], {
-    hour: "numeric",
-    minute: "2-digit"
-  });
-}
+import MessageBubble from "./components/MessageBubble";
 
 function App() {
 
@@ -103,10 +93,8 @@ function App() {
         {activeConversation.messages.map((message) => {
           const isMine = message.senderId === currentUser.id;
           return (
-            <li key={message.id}>
-              {isMine ? "Me": "Them"}: {message.text} {formatTime(message.timestamp)}
-            </li>
-          )
+            <MessageBubble key={message.id} message={message} isMine={isMine}></MessageBubble>
+          );
         })}
       </ul>
     )}

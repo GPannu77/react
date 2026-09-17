@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { currentUser, users, conversations as initialConversations } from "./data/mockData";
 import MessageBubble from "./components/MessageBubble";
 import ConversationItem from "./components/ConversationItem";
+import MessageList from "./components/MessageList";
 
 function App() {
 
@@ -87,19 +88,7 @@ function App() {
       })}
     </ul>
 
-    <h3>Messages</h3>
-    {activeConversation === undefined ? (
-      <p>Select a chat</p>
-    ) : (
-      <ul>
-        {activeConversation.messages.map((message) => {
-          const isMine = message.senderId === currentUser.id;
-          return (
-            <MessageBubble key={message.id} message={message} isMine={isMine}></MessageBubble>
-          );
-        })}
-      </ul>
-    )}
+    <MessageList activeConversation= {activeConversation}></MessageList>
     <div ref={messageEndRef}></div>
     <input value={messageText} onChange={(e) => changeMessageText(e)} type="text"></input>
     <button onClick={sendMessage}>Send Message</button>

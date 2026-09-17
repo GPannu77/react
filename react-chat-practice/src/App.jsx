@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { currentUser, users, conversations as initialConversations } from "./data/mockData";
 import MessageBubble from "./components/MessageBubble";
+import ConversationItem from "./components/ConversationItem";
 
 function App() {
 
@@ -76,12 +77,13 @@ function App() {
       {conversations.map((c) => {
         const participant = users.find((u) => u.id === c.participantId);
         return (
-        <li 
-          key={c.id}
-          onClick={() => setActiveConversationId(c.id)}
+
+          <ConversationItem 
+            key={c.id}
+            participantName={participant.name}
+            onClick={() => setActiveConversationId(c.id)}
             >
-              {participant.name}
-          </li>);
+            </ConversationItem>);
       })}
     </ul>
 

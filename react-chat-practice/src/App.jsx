@@ -4,6 +4,7 @@ import MessageList from "./components/MessageList";
 import ConversationList from "./components/ConversationList";
 import MessageInput from "./components/MessageInput";
 import ChatHeader from "./components/ChatHeader";
+import TypingIndicator from "./components/TypingIndicator";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
   });
 
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const[isTyping, setIsTyping] = useState(false);
   const[messageText, setMessageText] = useState("");
 
   const messageEndRef = useRef(null);
@@ -54,6 +56,7 @@ function App() {
         {...c, messages: [...c.messages, newMessage]}) : (c)));
 
     setMessageText("");
+    setIsTyping(true);
 
     setTimeout(() => {
       const replyMessage = {
@@ -66,7 +69,8 @@ function App() {
       setConversations((prevConversations => {
         return prevConversations.map((i) => i.id === activeConversationId ? (
           {...i, messages: [...i.messages, replyMessage]}) : (i))}));
-
+      
+        setIsTyping(false);
     }, 1500);
 
   }
@@ -80,6 +84,7 @@ function App() {
 
     <ChatHeader activeConversation={activeConversation}></ChatHeader>
     <MessageList activeConversation= {activeConversation}></MessageList>
+    {isTyping ? <TypingIndicator></TypingIndicator>: null}
     <div ref={messageEndRef}></div>
     <MessageInput messageText={messageText} onChange={changeMessageText} onSend={sendMessage}></MessageInput>
   </div>

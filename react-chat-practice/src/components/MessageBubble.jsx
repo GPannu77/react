@@ -1,6 +1,5 @@
 
 
-
 function formatTime(isoString) {
 
   const dateObj = new Date(isoString);

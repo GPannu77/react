@@ -3,6 +3,7 @@ import { currentUser, users, conversations as initialConversations } from "./dat
 import MessageList from "./components/MessageList";
 import ConversationList from "./components/ConversationList";
 import MessageInput from "./components/MessageInput";
+import ChatHeader from "./components/ChatHeader";
 
 function App() {
 
@@ -77,6 +78,7 @@ function App() {
     
     <ConversationList conversations={conversations} onSelectConversation={setActiveConversationId}></ConversationList>
 
+    <ChatHeader activeConversation={activeConversation}></ChatHeader>
     <MessageList activeConversation= {activeConversation}></MessageList>
     <div ref={messageEndRef}></div>
     <MessageInput messageText={messageText} onChange={changeMessageText} onSend={sendMessage}></MessageInput>

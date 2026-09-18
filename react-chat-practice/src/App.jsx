@@ -1,10 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { currentUser, users, conversations as initialConversations } from "./data/mockData";
-import MessageList from "./components/MessageList";
 import ConversationList from "./components/ConversationList";
-import MessageInput from "./components/MessageInput";
-import ChatHeader from "./components/ChatHeader";
-import TypingIndicator from "./components/TypingIndicator";
+import ChatWindow from "./components/ChatWindow";
 
 function App() {
 
@@ -82,11 +79,13 @@ function App() {
     
     <ConversationList conversations={conversations} onSelectConversation={setActiveConversationId}></ConversationList>
 
-    <ChatHeader activeConversation={activeConversation}></ChatHeader>
-    <MessageList activeConversation= {activeConversation}></MessageList>
-    {isTyping ? <TypingIndicator></TypingIndicator>: null}
+    <ChatWindow 
+      activeConversation={activeConversation}
+      isTyping={isTyping}
+      messageText={messageText}
+      onChange={changeMessageText}
+      onSend={sendMessage}></ChatWindow>
     <div ref={messageEndRef}></div>
-    <MessageInput messageText={messageText} onChange={changeMessageText} onSend={sendMessage}></MessageInput>
   </div>
   );
 }

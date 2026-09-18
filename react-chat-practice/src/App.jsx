@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { currentUser, users, conversations as initialConversations } from "./data/mockData";
-import MessageBubble from "./components/MessageBubble";
-import ConversationItem from "./components/ConversationItem";
 import MessageList from "./components/MessageList";
 import ConversationList from "./components/ConversationList";
+import MessageInput from "./components/MessageInput";
 
 function App() {
 
@@ -80,8 +79,7 @@ function App() {
 
     <MessageList activeConversation= {activeConversation}></MessageList>
     <div ref={messageEndRef}></div>
-    <input value={messageText} onChange={(e) => changeMessageText(e)} type="text"></input>
-    <button onClick={sendMessage}>Send Message</button>
+    <MessageInput messageText={messageText} onChange={changeMessageText} onSend={sendMessage}></MessageInput>
   </div>
   );
 }

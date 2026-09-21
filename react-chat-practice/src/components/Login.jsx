@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword} from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 
 function Login() {
        async function handleSignUp() {
@@ -10,7 +10,15 @@ function Login() {
                      console.log(error.message);
               }
        }
-       
+
+       async function handleLogIn() {
+              try{
+                     await signInWithEmailAndPassword(auth, email, password);
+              } catch (error) {
+                     console.log(error.message);
+              }
+       }
+
        const [email, setEmail] = useState("");
        const [password, setPassword] = useState("");
 
@@ -20,7 +28,7 @@ function Login() {
        <input value={password} type="password"
               placeholder="Password" onChange={(e) => setPassword(e.target.value)} required></input>
        <button onClick={handleSignUp}>Sign Up</button>
-       <button onClick={() => console.log("login button clicked")}>Log In</button>
+       <button onClick={handleLogIn}>Log In</button>
        </>);
 }
 

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { currentUser, users, conversations as initialConversations } from "./data/mockData";
 import ConversationList from "./components/ConversationList";
 import ChatWindow from "./components/ChatWindow";
+import Login from "./components/Login";
 
 function App() {
 
@@ -72,7 +73,8 @@ function App() {
 
   }
 
-  return(
+  return(<>
+    <Login></Login>
   <div className={isDarkMode ? "dark" : "light"}>
     <h1>Chats</h1>
     <button onClick={()=> setIsDarkMode((prev) => !prev)}>Toggle Dark Mode</button>
@@ -86,7 +88,7 @@ function App() {
       onChange={changeMessageText}
       onSend={sendMessage}></ChatWindow>
     <div ref={messageEndRef}></div>
-  </div>
+  </div></>
   );
 }
 

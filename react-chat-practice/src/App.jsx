@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { currentUser, users, conversations as initialConversations } from "./data/mockData";
+import { users, conversations as initialConversations } from "./data/mockData";
 import ConversationList from "./components/ConversationList";
 import ChatWindow from "./components/ChatWindow";
 import Login from "./components/Login";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
 
 function App() {
 
@@ -17,16 +19,26 @@ function App() {
     return (JSON.parse(savedConversation));
   });
 
+  const[currentUser, setCurrentUser] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const[isTyping, setIsTyping] = useState(false);
   const[messageText, setMessageText] = useState("");
 
   const messageEndRef = useRef(null);
-
   const activeConversation = conversations.find((c) => c.id === activeConversationId);
 
   useEffect(() => {
-    messageEndRef.current.scrollIntoView({behavior: "smooth"});
+    const unsubcribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    return () => unsubcribe();
+  }, []);
+
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({behavior: "smooth"});
+    }
   }, [activeConversation?.messages]);
 
   useEffect(() => {
@@ -73,8 +85,9 @@ function App() {
 
   }
 
-  return(<>
+  return currentUser === null ?(
     <Login></Login>
+  ) : (<>
   <div className={isDarkMode ? "dark" : "light"}>
     <h1>Chats</h1>
     <button onClick={()=> setIsDarkMode((prev) => !prev)}>Toggle Dark Mode</button>
